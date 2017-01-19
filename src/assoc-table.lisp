@@ -18,7 +18,7 @@
   (assoc-del key (alist table)))
 
 (defmethod-exported get-value ((table assoc-table) key)
-  (assoc-get (alist table) key))
+  (assoc-get key (alist table)))
 
 (defmethod-exported (setf get-value) (value (table assoc-table) key)
   (assoc-setf (alist table) key value 'eq)
