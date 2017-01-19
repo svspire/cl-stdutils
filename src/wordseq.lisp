@@ -45,6 +45,16 @@
   (setf *word-count* (third data)))
 |#
 
+;; Internal, inlined
+(defun-exported force-wseq-word (word)
+  (let ((id (gethash word *word-ids*)))
+    (if id
+      id
+      (let ((id (unique-word-id)))
+	(setf (gethash word *word-ids*) id)
+	(setf (gethash id *ids-word*) word)
+	id))))
+
 ;; To re-init, not exported
 (defun-exported init-wseq () 
   (setf *word-ids* (make-hash-table :size 1000 :test #'equal :rehash-size 1.5 :rehash-threshold 0.4))
@@ -173,14 +183,7 @@
 ;; ========================
 ;; Internal functions
 
-(defun-exported force-wseq-word (word)
-  (let ((id (gethash word *word-ids*)))
-    (if id
-      id
-      (let ((id (unique-word-id)))
-	(setf (gethash word *word-ids*) id)
-	(setf (gethash id *ids-word*) word)
-	id))))
+
 
 (defun unique-word-id ()
   (incf *word-count*))

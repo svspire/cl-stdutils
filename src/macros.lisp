@@ -34,6 +34,7 @@
 (defun-exported pop-symbol (sym)
   (intern (subseq (symbol-name sym) 1)))
 
+#+UNUSED-DUPLICATE
 (defmacro-exported defanaph (name &optional &key calls (rule :all))
   (let* ((opname (or calls (pop-symbol name)))
          (body (case rule
@@ -89,6 +90,7 @@
 ;; Creating local environments
 ;; 
 
+#+UNUSED-AND-BUGGY
 (defmacro-exported with-matrix (pats ar &body body)
   (let ((gar (gensym)))
     `(let ((,gar ,ar))
